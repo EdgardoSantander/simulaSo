@@ -17,7 +17,10 @@ public class simuController {
     public String mostrarSaludo(){
         GM.inicializaMemoria();
         GM.creaProceso(1,6);
-
+        
+        GM.creaProceso(2, 10);
+        GM.creaProceso(3, 3);
+        
         return GM.imprimeMemoria();
     }
 

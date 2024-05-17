@@ -53,7 +53,7 @@ public class GM {
 
 	public static final int LONGITUD_MEMORIA = 32;
 
-	public static List<int[]> listaControl;
+	public static List<Proceso> listaControl;
 
 	public static int[] memoria;
 
@@ -63,7 +63,7 @@ public class GM {
 
 	public static void inicializaMemoria() {
 
-		listaControl = new LinkedList<int[]>();
+		listaControl = new LinkedList<Proceso>();
 
 		memoria = new int[LONGITUD_MEMORIA];
 
@@ -72,10 +72,10 @@ public class GM {
 		// A�ade una primera entrada a la lista de control, un hueco con el
 
 		// tama�o de la memoria completa:
+		Proceso proceso = new Proceso("Hueco",0, 0 , LONGITUD_MEMORIA, 0);
+		
 
-		int[] hueco = { 0, 0, LONGITUD_MEMORIA, 0 };
-
-		listaControl.add(hueco);
+		listaControl.add(proceso);
 		System.out.println("Inicializaste la memoria");
 	}
 
@@ -152,126 +152,99 @@ public class GM {
 	public static boolean creaProceso(int pid, int tamanyo) {
 		int hueco;
 		boolean res = false;
-		switch (4) {
+		switch (1) {
 			case 1:
-				System.out.println("primer ajuste");
-				hueco = Ajueste.primerAjuste(listaControl, tamanyo);
-				res = (hueco != -1);
-
-				if (res) {
-
-					int direcc = listaControl.get(hueco)[1];
-
-					int[] proceso = { 1, direcc, tamanyo, pid };
-
-					int espacioRestante = listaControl.get(hueco)[2] - tamanyo;
-
-					// Inserta el proceso en el lugar del hueco
-
-					listaControl.set(hueco, proceso);
-
-					// Si el proceso es m�s peque�o que el hueco, inserta un hueco
-
-					if (espacioRestante > 0) {
-
-						int[] bloqRestante = { 0, direcc + tamanyo, espacioRestante, 0 };
-
-						listaControl.add(hueco + 1, bloqRestante);
-
-					}
-
-					escribeMemoria(direcc, tamanyo, 1);
+			hueco = Ajueste.primerAjuste(listaControl, tamanyo);
+			System.out.println("primer ajuste");
+			res = (hueco != -1);
+	
+			if (res) {
+				Proceso procesoHueco = listaControl.get(hueco);
+				Proceso procesoOrden = new Proceso("Proceso " + pid, 1, ultimoPid, tamanyo, pid);
+	
+				int espacioRestante = procesoHueco.getTamanio() - tamanyo;
+	
+				listaControl.add(hueco, procesoOrden);
+	
+				if (espacioRestante > 0) {
+					procesoHueco.setTamanio(espacioRestante);
+				} else {
+					listaControl.remove(hueco);
 				}
-				break;
+	
+				escribeMemoria(ultimoPid, tamanyo, 1);
+				ultimoPid += tamanyo;
+			}
+			break;
 			case 2:
-				hueco = Ajueste.siguienteAjuste(listaControl, tamanyo);
-				System.out.println("siguiente ajuste");
-				res = (hueco != -1);
-
-				if (res) {
-
-					int direcc = listaControl.get(hueco)[1];
-
-					int[] proceso = { 1, direcc, tamanyo, pid };
-
-					int espacioRestante = listaControl.get(hueco)[2] - tamanyo;
-
-					// Inserta el proceso en el lugar del hueco
-
-					listaControl.set(hueco, proceso);
-
-					// Si el proceso es m�s peque�o que el hueco, inserta un hueco
-
-					if (espacioRestante > 0) {
-
-						int[] bloqRestante = { 0, direcc + tamanyo, espacioRestante, 0 };
-
-						listaControl.add(hueco + 1, bloqRestante);
-
-					}
-
-					escribeMemoria(direcc, tamanyo, 1);
+			hueco = Ajueste.siguienteAjuste(listaControl, tamanyo);
+			System.out.println("siguiente ajuste");
+			res = (hueco != -1);
+	
+			if (res) {
+				Proceso procesoHueco = listaControl.get(hueco);
+				Proceso procesoOrden = new Proceso("Proceso " + pid, 1, ultimoPid, tamanyo, pid);
+	
+				int espacioRestante = procesoHueco.getTamanio() - tamanyo;
+	
+				listaControl.add(hueco, procesoOrden);
+	
+				if (espacioRestante > 0) {
+					procesoHueco.setTamanio(espacioRestante);
+				} else {
+					listaControl.remove(hueco);
 				}
-				break;
+	
+				escribeMemoria(ultimoPid, tamanyo, 1);
+				ultimoPid += tamanyo;
+			}
+			break;
 			case 3:
-				hueco = Ajueste.mejorAjuste(listaControl, tamanyo);
-				System.out.println("mejor ajuste");
-				res = (hueco != -1);
-
-				if (res) {
-
-					int direcc = listaControl.get(hueco)[1];
-
-					int[] proceso = { 1, direcc, tamanyo, pid };
-
-					int espacioRestante = listaControl.get(hueco)[2] - tamanyo;
-
-					// Inserta el proceso en el lugar del hueco
-
-					listaControl.set(hueco, proceso);
-
-					// Si el proceso es m�s peque�o que el hueco, inserta un hueco
-
-					if (espacioRestante > 0) {
-
-						int[] bloqRestante = { 0, direcc + tamanyo, espacioRestante, 0 };
-
-						listaControl.add(hueco + 1, bloqRestante);
-
-					}
-
-					escribeMemoria(direcc, tamanyo, 1);
+			hueco = Ajueste.mejorAjuste(listaControl, tamanyo);
+			System.out.println("mejor ajuste");
+			res = (hueco != -1);
+	
+			if (res) {
+				Proceso procesoHueco = listaControl.get(hueco);
+				Proceso procesoOrden = new Proceso("Proceso " + pid, 1, ultimoPid, tamanyo, pid);
+	
+				int espacioRestante = procesoHueco.getTamanio() - tamanyo;
+	
+				listaControl.add(hueco, procesoOrden);
+	
+				if (espacioRestante > 0) {
+					procesoHueco.setTamanio(espacioRestante);
+				} else {
+					listaControl.remove(hueco);
 				}
-				break;
+	
+				escribeMemoria(ultimoPid, tamanyo, 1);
+				ultimoPid += tamanyo;
+			}
+			break;
 			case 4:
-				hueco = Ajueste.peorAjuste(listaControl, tamanyo);
-				System.out.println("peor ajuste");
-				res = (hueco != -1);
-
-				if (res) {
-
-					int direcc = listaControl.get(hueco)[1];
-
-					int[] proceso = { 1, direcc, tamanyo, pid };
-
-					int espacioRestante = listaControl.get(hueco)[2] - tamanyo;
-
-					// Inserta el proceso en el lugar del hueco
-
-					listaControl.set(hueco, proceso);
-
-					// Si el proceso es m�s peque�o que el hueco, inserta un hueco
-
-					if (espacioRestante > 0) {
-
-						int[] bloqRestante = { 0, direcc + tamanyo, espacioRestante, 0 };
-
-						listaControl.add(hueco + 1, bloqRestante);
-
-					}
-
-					escribeMemoria(direcc, tamanyo, 1);
-				}
+			hueco = Ajueste.peorAjuste(listaControl, tamanyo);
+			System.out.println(hueco);
+			res = (hueco != -1);
+			
+			if (res) {
+				// Se obtiene el lugar que ocupa en la listaControl
+				Proceso procesoHueco = listaControl.get(hueco);
+				// Se crea el nuevo proceso
+				Proceso procesoOrden = new Proceso("Proceso "+pid, 1, ultimoPid, tamanyo, pid);
+								
+				int espacioRestante = procesoHueco.getTamanio() - tamanyo;
+				System.out.println(espacioRestante);
+				// Inserta el proceso en el lugar del hueco
+				listaControl.add(hueco, procesoOrden);
+			
+				// Actualiza el proceso existente para reflejar el espacio restante
+				procesoHueco.setTamanio(espacioRestante);
+				
+				escribeMemoria(ultimoPid, tamanyo, 1);
+				ultimoPid += tamanyo;
+			}
+			
 				break;
 			default:
 				break;
@@ -283,7 +256,7 @@ public class GM {
 		// int hueco = Ajueste.mejorAjuste(listaControl, tamanyo);
 
 		// int hueco = Ajueste.peorAjuste(listaControl, tamanyo);
-
+		System.out.println(imprimeMemoria());
 		return res;
 
 	}
@@ -304,7 +277,7 @@ public class GM {
 	 * 
 	 */
 
-	public static boolean destruyeProceso(int pid) {
+	/*public static boolean destruyeProceso(int pid) {
 
 		// Busca el �ndice del proceso en la lista de control
 
@@ -368,7 +341,7 @@ public class GM {
 	 * 
 	 */
 
-	private static boolean fusiona(int indice) {
+	/*private static boolean fusiona(int indice) {
 
 		boolean fusionable = false;
 
@@ -400,26 +373,32 @@ public class GM {
 
 	public static String imprimeMemoria() {
 
-		String s = "Lista de control: {[EST-DIR-TAM-PROC]:";
+		String s = " [EST-DIR-TAM-PROC]:";
 
-		for (int[] bloque : listaControl) {
+		for (Proceso bloque : listaControl) {
 
-			s += "[" + bloque[0] + "-" + bloque[1] + "-" + bloque[2] + "-"
+			s += " >> [" + bloque.getNombre() + "-" + bloque.getEstado() + "-" + bloque.getDireIni() + "-"
 
-					+ bloque[3];
+					+ bloque.getTamanio()+ "-"+ bloque.getPid();
 
 			s += "]";
+
+			
+				
+			
+			
 
 		}
 
 		String x = "Memoria: ";
-
+		String unocero = ""; 
 		for (int i : memoria) {
 
-			x += i;
+			unocero += i;
 
 		}
-		String cadena = s+"   "+x;
+
+		String cadena = s+"   "+x+ " "+unocero;
 		return cadena;
 		
 	}
@@ -428,6 +407,7 @@ public class GM {
 
 	// Se puede experimentar con las primitivas creadas.
 
-
+	
+	
 
 }
