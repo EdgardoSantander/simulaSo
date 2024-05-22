@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/disenio.css">
+    <link rel="stylesheet" href="css/datos.css">
       
     
 </head>
@@ -23,97 +24,105 @@
     
     <div class="primerParte">
         <div class="planificador">
+            <h1>Planificador</h1>
             <p class="parrafo-planificador" id="mostrarCadena"></p>
         </div>
         <div class="propiedadesProceso"></div>
     </div>
     <div class="segundaParte">
         <div class="mmu">
-            <div class="TituMMU"><h1>MMU (Paginada)</h1></div>
-             <div class="mmu1">
-                <div class="listapagina">
-                    <h2 class="titulopaginas">Lista Paginas</h2>
+            <div class="TituMMU"><h1>AÑADIR PROCESO</h1></div>
+             
                     
-                    <table class="tablapag">
-                        <tr>
-                            <th class="titulotabla">Pag.</th>
-                            <th class="titulotabla">Marco</th>
-                        </tr>
-                        
-                    </table>
-                </div>
-                <div class="mmuelementos">
-                    <div class="algoritmorem">Algoritmo Reemplazo</div>
-                    <div class="conteflecha">
-                        <div class="flechapar">
-                            <button class="btn-invi" id="boton-izquierdo"><img src="images/flecha.png" class="imagisder" alt=""></button>
-                        </div>
-                        <div class="flechapar">
-                            <button class="btn-invi" id="boton-derecho"><img src="images/flecha.png" class="imagisizq" alt=""></button>
-                        </div>
+                    <div class="mmu1">
+                   
+                      <form id="processForm">
+                          
+                            
+                            <div>
+                                <label for="pidpid" >Pid</label>
+                                <input
+                                type="number"
+                                name="pidpid"
+                                id="pidpid"
+                                placeholder="1"
+                                class="entradatxt"
+                                />
+                            </div>
+                          
+                  
+                          
+                            <div>
+                                <label for="tamaProce" >Tamaño</label>
+                                <input
+                                type="number"
+                                name="tamaProce"
+                                id="tamaProce"
+                                placeholder="tamaño max 10"
+                                class="entradatxt"
+                                />
+                            </div>
+                         
+                            <button type="submit" class="btn-registro" id="btn-regis">
+                              Añadir Proceso
+                          </button>
+                      </form>
+                      
+                      
+                  
+                
                     </div>
-                    <div class="asignamarcos">Asignacion Marcos</div>
-                </div>
-            </div>
-            <div class="mmu2">
-                <div class="espaciommu"></div>
-            </div>
+            
+            
         </div>
         <div class="elements">
             <div class="primercentro">
-                <div class="flechitapar">
-                    <div class="flechaarriba">
-                        <div>
-                            <img src="images/izquierda arriba.png" class="arribaizq">
-                        </div>
-                    </div>
-                    <div class="flechaabajo">
-                        <img src="images/abajo.png" class="izqarrow">
-                    </div>
-                </div>
-                <div class="so"></div>
-                <div class="lanzar">
-                    <div class="lanzar1">
-                        <div class="lanzaflecha">
-                            <img src="images/arriba.png" class="flechaarriba">
-                        </div>
-                    </div>
-                    <div class="lanzar2">
-                        <div class="lanzacuadro"></div>
-                    </div>
-                </div>
+                <h1 class="titulomemoria">Memoria</h1>
+                <p class="cadenamemoria" id="memoriamostrar"></p>   
             </div>
-            <div class="seguncentro">
-                <div class="flechacentro">
-                    <img src="images/arriba.png" class="imagearrowtop">
-                </div>
-            </div>
-            <div class="tercercentro">
-                <div class="cpu1"></div>
-                <div class="cpu2"></div>
-                <div class="cpu3">
-                    <div class="lanada"></div>
-                    <div class="contereloj">
-                        <div class="reloj"></div>
+            <div class="primercentro">
+                <form id="FormEliminar"><h1>Eliminar proceso</h1>
+                    <div>
+                      
+                      <div>
+                          <label for="pidborra" >Pid</label>
+                          <input
+                          type="number"
+                          name="pidborra"
+                          id="pidborra"
+                          placeholder="1"
+                          class="entradatxt"
+                          />
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="cuartocentro">
-                <div class="recipientearrow">
-                    <img src="images/74616.png" class="ultiflecha">
-                </div>
+            
+                    <div class="formbold-input-flex">
+                      
+                      
+                    </div>
+                      <button class="btn-registro" id="btn-regis">
+                        Eliminar
+                    </button>
+                </form>
             </div>
         </div>
         <div class="marcos">
             <div class="titulomarcos"><h1>Tabla Marcos 'Memoria'</h1></div>
             <div class="tablamarcos">
-                <table class="tablam">
-                    <tr>
-                        <th class="titulotabla">Num.</th>
-                        <th class="titulotabla">Ref.</th>
-                        <th class="titulotabla">Id. Pro.</th>
-                        <th class="titulotabla">Pag. Asig.</th>
-                    </tr>
+                <table class="tablam" id="tablitaprocess">
+                    <thead>
+                        <tr>
+                        <th class="titulotabla">Nombre</th>
+                        <th class="titulotabla">Inicio</th>
+                        <th class="titulotabla">Tam</th>
+                        <th class="titulotabla">Pid</th>
+                        </tr>
+                        
+                    </thead>
+                   <tbody class="titulotabla">
+                    
+                    
+                   </tbody>
                     
                 </table>
             </div>

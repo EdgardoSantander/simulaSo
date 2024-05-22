@@ -59,6 +59,9 @@ public class GM {
 
 	public static int ultimoPid;
 
+
+	
+
 	/* Inicia los atributos necesarios para el funcionamiento de la memoria. */
 
 	public static void inicializaMemoria() {
@@ -155,7 +158,7 @@ public class GM {
 		switch (1) {
 			case 1:
 			hueco = Ajueste.primerAjuste(listaControl, tamanyo);
-			System.out.println("primer ajuste");
+			
 			res = (hueco != -1);
 	
 			if (res) {
@@ -178,7 +181,7 @@ public class GM {
 			break;
 			case 2:
 			hueco = Ajueste.siguienteAjuste(listaControl, tamanyo);
-			System.out.println("siguiente ajuste");
+			
 			res = (hueco != -1);
 	
 			if (res) {
@@ -201,7 +204,7 @@ public class GM {
 			break;
 			case 3:
 			hueco = Ajueste.mejorAjuste(listaControl, tamanyo);
-			System.out.println("mejor ajuste");
+			
 			res = (hueco != -1);
 	
 			if (res) {
@@ -224,7 +227,7 @@ public class GM {
 			break;
 			case 4:
 			hueco = Ajueste.peorAjuste(listaControl, tamanyo);
-			System.out.println(hueco);
+			
 			res = (hueco != -1);
 			
 			if (res) {
@@ -234,7 +237,7 @@ public class GM {
 				Proceso procesoOrden = new Proceso("Proceso "+pid, 1, ultimoPid, tamanyo, pid);
 								
 				int espacioRestante = procesoHueco.getTamanio() - tamanyo;
-				System.out.println(espacioRestante);
+				
 				// Inserta el proceso en el lugar del hueco
 				listaControl.add(hueco, procesoOrden);
 			
@@ -251,12 +254,8 @@ public class GM {
 
 		}
 
-		// int hueco = Ajueste.siguienteAjuste(listaControl, tamanyo);
-
-		// int hueco = Ajueste.mejorAjuste(listaControl, tamanyo);
-
-		// int hueco = Ajueste.peorAjuste(listaControl, tamanyo);
-		System.out.println(imprimeMemoria());
+		
+		
 		return res;
 
 	}
@@ -277,49 +276,33 @@ public class GM {
 	 * 
 	 */
 
-	/*public static boolean destruyeProceso(int pid) {
+	 public static boolean destruyeProceso(int pid) {
+        int indice = -1;
 
-		// Busca el �ndice del proceso en la lista de control
+        for (int i = 0; i < listaControl.size(); i++) {
+            Proceso proceso = listaControl.get(i);
+            if (proceso.getPid() == pid) {
+                indice = i;
+                break;
+            }
+        }
 
-		int indice = 0;
+        boolean encontrado = (indice != -1);
 
-		for (int[] bloque : listaControl) {
+        if (encontrado) {
+            Proceso procesoABorrar = listaControl.get(indice);
+            procesoABorrar.setEstado(0);
+            procesoABorrar.setNombre("Hueco");
+            procesoABorrar.setPid(0);
+            escribeMemoria(procesoABorrar.getDireIni(), procesoABorrar.getTamanio(), 0);
+            fusiona(indice);
+            if (indice > 0) {
+                fusiona(indice - 1);
+            }
+        }
 
-			indice++;
-
-			if (bloque[3] == pid) {
-
-				break;
-
-			}
-
-		}
-
-		indice--;
-
-		boolean encontrado = (indice != -1);
-
-		// Si lo ha encontrado, lo borra de la memoria y de la lista de control
-
-		if (encontrado) {
-
-			int[] bloqueABorrar = listaControl.get(indice);
-
-			listaControl.get(indice)[0] = 0;
-
-			listaControl.get(indice)[3] = 0;
-
-			escribeMemoria(bloqueABorrar[1], bloqueABorrar[2], 0);
-
-			fusiona(indice);
-
-			fusiona(indice - 1);
-
-		}
-
-		return encontrado;
-
-	}
+        return encontrado;
+    }
 
 	/**
 	 * 
@@ -341,29 +324,23 @@ public class GM {
 	 * 
 	 */
 
-	/*private static boolean fusiona(int indice) {
+	 private static boolean fusiona(int indice) {
+        boolean fusionable = false;
 
-		boolean fusionable = false;
+        if (indice >= 0 && (indice + 1) < listaControl.size()) {
+            Proceso bloqueActual = listaControl.get(indice);
+            Proceso bloqueSiguiente = listaControl.get(indice + 1);
 
-		if (indice >= 0 && (indice + 1) < listaControl.size()) {
+            if (bloqueActual.getEstado() == 0 && bloqueSiguiente.getEstado() == 0) {
+                fusionable = true;
+                bloqueActual.setTamanio(bloqueActual.getTamanio() + bloqueSiguiente.getTamanio());
+                listaControl.remove(indice + 1);
+            }
+        }
 
-			fusionable = listaControl.get(indice)[0] == 0
+        return fusionable;
+    }
 
-					&& listaControl.get(indice + 1)[0] == 0;
-
-		}
-
-		if (fusionable) {
-
-			int tamanyo = listaControl.remove(indice + 1)[2];
-
-			listaControl.get(indice)[2] += tamanyo;
-
-		}
-
-		return fusionable;
-
-	}
 
 	/**
 	 * 
@@ -390,15 +367,9 @@ public class GM {
 
 		}
 
-		String x = "Memoria: ";
-		String unocero = ""; 
-		for (int i : memoria) {
+		
 
-			unocero += i;
-
-		}
-
-		String cadena = s+"   "+x+ " "+unocero;
+		String cadena = s;
 		return cadena;
 		
 	}
@@ -406,7 +377,18 @@ public class GM {
 	// Este es el punto de entrada de la implementaci�n.
 
 	// Se puede experimentar con las primitivas creadas.
+	public static String imprimeCadena(){
+		
+		String unocero = ""; 
+		for (int i : memoria) {
 
+			unocero += i;
+
+		}
+		return "   "+unocero;
+	}
+
+	
 	
 	
 

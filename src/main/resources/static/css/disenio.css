@@ -18,7 +18,8 @@ body{
     border-radius: 1em;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
     display: flex;
-    align-items: center;
+    align-items: self-start;
+    color: aliceblue;
     
 }
 .propiedadesProceso{
@@ -51,8 +52,10 @@ body{
 }
 .TituMMU{
    margin-top: 10px; 
+   text-align: center;
+   color: aliceblue;
 }
-.TituMMU h1{
+.TituMMU h3{
     
     text-align: center;
     font-size: 1em;
@@ -66,6 +69,7 @@ body{
     display: flex;
     justify-content: space-around;
     align-items: center;
+    color: aliceblue;
 }
 .listapagina{
     background-color: rosybrown;
@@ -90,17 +94,28 @@ body{
 .espaciommu{
     border-style: solid;
     width: 94%;
-    height: 120px;
+    height: 140px;
     border-radius: 1em;
     border-width: 0.17em;
-
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    
+}
+.relleno-eliminar{
+    padding-left: 100px;
+    width: 200px;
+    height: 20px;
+    
+    align-items: center;
+    text-align: center;
 }
 
 .elements{
     width: 39%;
-    height: 600px;
-    position: relative;
-    justify-content: space-around;
+    
+   
+    
     flex: auto;
     
     
@@ -116,6 +131,7 @@ body{
     margin: 3px;
     border-radius: 1em;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+    color: aliceblue;
 }
 
 .navbar{
@@ -231,18 +247,21 @@ nav h1{
      margin: 0;
  }
  .tablam{
-    margin: auto;
-    text-align: center;
-    display: flex;
-    justify-content: center;
+    width: 100%;
+    border-collapse: collapse;
  }
  .primercentro{
     margin-top: 5px;
-    
-    width: 100%;
-    height: 200px;
+    background-color: rgb(56, 68, 70);
+    width: 99%;
+    height: 49%;
     display: inline-flex;
-    
+    border-radius: 1em;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-left: 4px;
+    color: aliceblue;
+    text-align: center;
+    justify-content: center;
  }
  .flechitapar{
     
@@ -317,7 +336,7 @@ nav h1{
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
  }
  .seguncentro{
-    
+    background-color: aqua;
     width: 100%;
     height: 90px;
     
@@ -417,3 +436,15 @@ nav h1{
     
     
  }
+ .cadenamemoria{
+
+    font-size: 40px;
+    display: block;
+    width: 100%;
+    align-items: flex-end;
+  }
+  .titulomemoria{
+    display: block;
+    width: 100%;
+    align-items: flex-start;
+  }
